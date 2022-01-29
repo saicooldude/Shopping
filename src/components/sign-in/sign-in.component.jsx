@@ -18,10 +18,10 @@ class SignIn extends React.Component{
     handlechange=event=>{
         const {value , name}=event.target;
         this.setState({[name]:value});
-        console.log(event);
+        
     };
     signInWithGoogleHandler=async()=>{
-        console.log('hii');
+        
         const result=await signInWithGoogle()
 
     }

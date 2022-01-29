@@ -5,7 +5,8 @@ import {Route} from 'react-router-dom';
 import ShopPage from './pages/shop/shop.component';
 import Header from './components/header/header.component';
 import signInandsignUppage from './pages/sign-in-and-sign-up/sign-in-and-sign-up';
-import {auth} from './firebase/firebase.utilis';
+import {auth,createUserProfileDocument} from './firebase/firebase.utilis';
+
 // const hats=()=>{
 
 //   return(
@@ -25,11 +26,28 @@ class App  extends React.Component{
   unsubscribefromauth=null;
 
   componentDidMount(){
-    this.unsubscribefromauth=auth.onAuthStateChanged(user=>{
-      this.setState({currentUser:user});
-      console.log(user);
+    this.unsubscribefromauth=auth.onAuthStateChanged(async userAuth=>{
+      // this.setState({currentUser:user});
+      // user ? console.log("qwsedrfg") : console.log('just signed out');
+      // createUserProfileDocument(user);
+      if(userAuth){
+        const userRef=await createUserProfileDocument(userAuth);
+        userRef.onSnapshot(snapShot=>{
+          this.setState({currentUser:{
+            id:snapShot.id,
+            ...snapShot.data()
+          }});
+        } );
+      }
+      this.setState({currentUser:userAuth});    
+
+      
+    
     });
   }
+
+
+
   componentWillUnmount(){
     this.unsubscribefromauth();
     
