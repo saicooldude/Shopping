@@ -7,13 +7,13 @@ import Header from './components/header/header.component';
 import signInandsignUppage from './pages/sign-in-and-sign-up/sign-in-and-sign-up';
 import {auth,createUserProfileDocument} from './firebase/firebase.utilis';
 
-// const hats=()=>{
+    // const hats=()=>{
 
-//   return(
-//     <h1>Hello welcome to the hats page</h1>
-    
-//     );
-// };
+    //   return(
+    //     <h1>Hello welcome to the hats page</h1>
+        
+    //     );
+    // };
 
 
 class App  extends React.Component{
@@ -24,21 +24,23 @@ class App  extends React.Component{
     }
   }
   unsubscribefromauth=null;
-
+   
   componentDidMount(){
     this.unsubscribefromauth=auth.onAuthStateChanged(async userAuth=>{
       // this.setState({currentUser:user});
       // user ? console.log("qwsedrfg") : console.log('just signed out');
       // createUserProfileDocument(user);
       if(userAuth){
+        
         const userRef=await createUserProfileDocument(userAuth);
         userRef.onSnapshot(snapShot=>{
           this.setState({currentUser:{
             id:snapShot.id,
-            ...snapShot.data()
+            ...snapShot.data()  
           }});
         } );
       }
+      
       this.setState({currentUser:userAuth});    
 
       
@@ -62,14 +64,11 @@ class App  extends React.Component{
         <Route exact path='/' component={HomePage}/>
         <Route exact path='/shop' component={ShopPage}/>
         <Route exact path='/signin' component={signInandsignUppage}/>
-    
-    
         </switch>
-        
-      </div>
+       </div>
     
         
-      );
+    );
 
   }
 

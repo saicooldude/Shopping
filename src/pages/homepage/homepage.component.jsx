@@ -4,19 +4,18 @@ import Directory from '../../components/directory/directory.component';
 
 
 
-const HomePage=(props)=>{
+const HomePage = (props) => {
   console.log(props);
 
-  return(
+  return (
     <div className="homepage">
-    <Directory/>
-      
-  </div>
+      <Directory />
+    </div>
 
   );
 
 };
-  
+
 
 
 

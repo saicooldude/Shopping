@@ -18,25 +18,25 @@ firebase.initializeApp(firebaseConfig);
 export const auth = firebase.auth();
 
 // const firebaseAuth = getAuth();
-export const createUserProfileDocument= async(userAuth,additionalData)=>{
-  if(!userAuth)
-  {
+export const createUserProfileDocument = async (userAuth, additionalData) => {
+
+  if (!userAuth) {
     return;
   }
-  const userRef=firebase.firestore().doc(`users/${userAuth.uid}`);
-  const snapShot=await userRef.get();
-  
-  if(!snapShot.exists)
-  {
-    const {displayName,email}=userAuth;
-    const createdAt=new Date();
-    try{
-      await userRef.set({displayName,email,createdAt,...additionalData});
-    }catch(error)
-    {
+  const userRef = firebase.firestore().doc(`users/${userAuth.uid}`);
+
+  const snapShot = await userRef.get();
+
+
+  if (!snapShot.exists) {
+    const { displayName, email } = userAuth;
+    const createdAt = new Date();
+    try {
+      await userRef.set({ displayName, email, createdAt, ...additionalData });
+    } catch (error) {
       console.log('error occured while creating user message');
     }
-   
+
   }
   return userRef;
 };
